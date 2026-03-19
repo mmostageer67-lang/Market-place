@@ -1,5 +1,5 @@
 const express=require('express')
 const router=express.Router()
 const authRouter=require('../modules/auth/authRoutes')
-router.use('auth',authRouter)
-module.exports=authRouter
+router.use('/auth',authRouter)
+module.exports=router
