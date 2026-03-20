@@ -14,6 +14,8 @@ if(!users)
 
 }
 const isMatch=await bcrypt.compare(password,users.password)
+
+
 if(!isMatch)
 {
     throw new Error('invalide passord or email')
@@ -21,7 +23,7 @@ if(!isMatch)
 users.password=undefined
 
 const token =genrateToken(users._id)
-return {token,users}
+return {token,user:users}
 
     }
 module.exports={registerUser,loginUser}
