@@ -1,5 +1,6 @@
 const User=require('./authModel')
 const bcrypt=require('bcrypt')
+const genrateToken=require('../../utils/generateToken')
 const registerUser=async(data)=>{
  const user=  await User.create(data)
  return user
@@ -18,7 +19,9 @@ if(!isMatch)
     throw new Error('invalide passord or email')
 }
 users.password=undefined
-return users
+
+const token =genrateToken(users._id)
+return {token,users}
 
     }
 module.exports={registerUser,loginUser}
