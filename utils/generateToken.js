@@ -3,7 +3,7 @@ const genrateToken =(userId)=>
 {
     return jwt.sign(
         {id:userId},
-        process.env.Jwt_SECRET,
+        process.env.JWT_SECRET,
         {expiresIn:'1d'}
     )
 }
