@@ -8,20 +8,16 @@ const roleMiddleware = (...allowedRoles) => {
                 })
             }
 
-            if (!allowedRoles.includes(req.user.role)) {
+            if (!allowedRoles.includes(req.user)) {
                 return res.status(403).json({
                     success: false,
                     message: 'Forbidden: access denied'
                 })
             }
 
-            return next()
+             next()
         } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: 'Role authorization failed',
-                error: error.message
-            })
+         next(error)
         }
     }
 }

@@ -1,5 +1,5 @@
 const {registerUser,loginUser}=require('./authService')
-const register=async(req,res)=>
+const register=async(req,res,next)=>
 {
     try {
         const user=await registerUser(req.body)
@@ -10,13 +10,11 @@ const register=async(req,res)=>
             user
         })
     } catch (error) {
-        res.status(500).json({
-            success:false,
-            message:error.message
-        })
+               next(error)
+
     }
 }
-const login =async (req,res) => {
+const login =async (req,res,next) => {
     try {
 const { email, password } = req.body
 const{ user,token} = await loginUser(email, password)
@@ -27,10 +25,7 @@ const{ user,token} = await loginUser(email, password)
             token
         })
     } catch (error) {
-        res.status(401).json({
-            success:false,
-            message:error.message
-        })
+       next(error)
     }
 }
 module.exports={register,login}
