@@ -1,4 +1,4 @@
-const User=require('./authModel')
+const User=require('../user/userModel')
 const bcrypt=require('bcrypt')
 const genrateToken=require('../../utils/generateToken')
 const registerUser=async(data)=>{

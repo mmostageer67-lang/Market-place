@@ -1,6 +1,6 @@
 const roleMiddleware = (...allowedRoles) => {
     return (req, res, next) => {
-        try {
+        try{
             if (!req.user) {
                 return res.status(401).json({
                     success: false,
@@ -8,7 +8,7 @@ const roleMiddleware = (...allowedRoles) => {
                 })
             }
 
-            if (!allowedRoles.includes(req.user)) {
+            if (!allowedRoles.includes(req.user.role)) {
                 return res.status(403).json({
                     success: false,
                     message: 'Forbidden: access denied'
@@ -16,10 +16,11 @@ const roleMiddleware = (...allowedRoles) => {
             }
 
              next()
-        } catch (error) {
-         next(error)
+       }
+catch(error){
+     return    next(error)}
         }
     }
-}
+
 
 module.exports = roleMiddleware

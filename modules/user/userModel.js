@@ -1,4 +1,5 @@
 const mongoose =require('mongoose')
+const roleModel=require('../../middleware/roleMiddleware')
 const bcrypt=require('bcrypt')
 const userSchema=new mongoose.Schema({
     name:
