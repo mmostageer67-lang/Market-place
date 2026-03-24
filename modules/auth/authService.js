@@ -1,10 +1,17 @@
 const User=require('../user/userModel')
 const bcrypt=require('bcrypt')
 const genrateToken=require('../../utils/generateToken')
-const registerUser=async(data)=>{
- const user=  await User.create(data)
- return user
-}
+const registerUser = async (data) => {
+  const { name, email, password } = data;
+
+  const user = await User.create({
+    name,
+    email,
+    password
+  });
+
+  return user;
+};
 const loginUser=async (email,password) => {
     
 const users=await User.findOne({email}).select('+password')

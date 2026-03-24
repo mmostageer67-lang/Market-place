@@ -1,4 +1,4 @@
-const {getAllUsers} = require("./userService")
+const {getAllUsers,getUserById} = require("./userService")
 
 const getAllUserControllers=async (req,res,next) => {
     try{
@@ -21,4 +21,17 @@ const getAllUserControllers=async (req,res,next) => {
         next(error)
     }
 }
-module.exports={getAllUserControllers}
+const getUsersByIdControllers=async (req,res,next) => {
+  try {
+    const user=await getUserById(req.params.id)
+    
+      res.status(200).json({
+        success:true,
+        message:'the user founded .',
+        user
+      })
+  } catch (error) {
+    next(error)
+  }
+}
+module.exports={getAllUserControllers,getUsersByIdControllers}
