@@ -1,4 +1,4 @@
-const {getAllUsers,getUserById,updateUser} = require("./userService")
+const {getAllUsers,getUserById,updateUser,deleteUser} = require("./userService")
 
 const getAllUserControllers=async (req,res,next) => {
     try{
@@ -47,4 +47,18 @@ if (Object.keys(req.body).length === 0) {
   next(error)
 }
 }
-module.exports={getAllUserControllers,getUsersByIdControllers,updateUserController}
+const dleleteUserController=async(req,res,next)=>
+{
+try {
+  const user=await deleteUser(req.params.id)
+  res.status(200).json({
+    success:true,
+    
+    message:'the user deleted successfully',
+    user
+  })
+} catch (error) {
+  next(error)
+}
+}
+module.exports={getAllUserControllers,getUsersByIdControllers,updateUserController,dleleteUserController}

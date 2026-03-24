@@ -31,4 +31,13 @@ const updateUser=async (id,data) => {
   }
 
 }
-module.exports={getAllUsers,getUserById,updateUser}
+const deleteUser=async (id) => {
+  const user=await User.findByIdAndDelete(id)
+  if(!user)
+  {
+    throw new Error("user not found!");
+    
+  }
+  return user
+}
+module.exports={getAllUsers,getUserById,updateUser,deleteUser}
