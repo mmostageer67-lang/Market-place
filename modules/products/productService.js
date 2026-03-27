@@ -10,4 +10,43 @@ return await Product.create({
     stock:data.stock
 }) 
 }
-module.exports={createProduct}
+const getAllProducts=async()=>
+{
+ await Product.find()
+}
+const getProductById=async(id)=>
+{
+  const product =    await Product.findById(id)
+     if(!product)
+     {
+        throw new Error("the product not found !");
+        
+     }
+     return product
+}
+const updateProduct=async (id,data) => {
+    const product=await Product.findByIdAndUpdate(id,data,
+        {
+            new:true,
+            runValidators:true
+        }
+    )
+     if(!product)
+     {
+        throw new Error("the product not found !");
+        
+     }
+          return product
+
+}
+const deleteProduct=async (id) => {
+    const product=await Product.findByIdAndDelete(id)
+     if(!product)
+     {
+        throw new Error("the product not found !");
+        
+     }
+          return product
+
+}
+module.exports={createProduct,getAllProducts,getProductById,updateProduct,deleteProduct}
