@@ -12,7 +12,7 @@ return await Product.create({
 }
 const getAllProducts=async()=>
 {
- await Product.find()
+return await Product.find()
 }
 const getProductById=async(id)=>
 {
