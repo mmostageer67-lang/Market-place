@@ -29,7 +29,7 @@ const updateUser=async (id,data) => {
       }
 
   }
-
+return user
 }
 const deleteUser=async (id) => {
   const user=await User.findByIdAndDelete(id)
