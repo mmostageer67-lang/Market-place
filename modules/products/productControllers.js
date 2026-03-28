@@ -1,4 +1,4 @@
-const { createProduct, getAllProducts, getProductById, updateProduct } = require("./productService")
+const { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } = require("./productService")
 const authMiddleware=require('../../middleware/authMiddleware')
 const createProductController=async (req,res,next) => {
     try {
@@ -52,4 +52,17 @@ const updateProductController=async (req,res,next) => {
         next(error)
     }
 }
-module.exports={createProductController,getAllProductConroller,getProductByIdController,updateProductController}
+const deleteProductController=async(req,res,next)=>
+{
+    try {
+        const product=await deleteProduct(req.params.id)
+res.status(200).json({
+    success:true,
+    message:'product deleted successfully.'
+    
+})
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports={createProductController,getAllProductConroller,getProductByIdController,updateProductController,deleteProductController}
