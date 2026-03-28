@@ -1,4 +1,4 @@
-const { createProduct, getAllProducts, } = require("./productService")
+const { createProduct, getAllProducts, getProductById } = require("./productService")
 const authMiddleware=require('../../middleware/authMiddleware')
 const createProductController=async (req,res,next) => {
     try {
@@ -25,4 +25,19 @@ const getAllProductConroller=async (req,res,next) => {
         next(error)
     }
 }
-module.exports={createProductController,getAllProductConroller}
+const getProductByIdController=async(req,res,next)=>
+{
+    try {
+        const id =req.params.id
+        const product = await getProductById(id)
+       
+        res.status(200).json({
+            success:true,
+            message:'the user founded successfully',
+            product
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports={createProductController,getAllProductConroller,getProductByIdController}
