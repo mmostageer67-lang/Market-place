@@ -39,14 +39,20 @@ const updateProduct=async (id,data) => {
           return product
 
 }
-const deleteProduct=async (id) => {
-    const product=await Product.findByIdAndDelete(id)
+const deleteProduct=async (id,userId) => {
+    const product=await Product.findById(id)
      if(!product)
      {
         throw new Error("the product not found !");
         
      }
-          return product
+ if (product.createdBy.toString() !== userId) {
+    throw new Error("Not authorized");
+  }
+
+  await product.deleteOne();
+
+  return product;
 
 }
 

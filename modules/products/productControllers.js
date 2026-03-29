@@ -55,10 +55,10 @@ const updateProductController=async (req,res,next) => {
 const deleteProductController=async(req,res,next)=>
 {
     try {
-        const product=await deleteProduct(req.params.id)
+       const product =await deleteProduct(req.params.id,req.user.id)
 res.status(200).json({
     success:true,
-    message:'product deleted successfully.'
+    message:'product deleted successfully.',
     
 })
     } catch (error) {
