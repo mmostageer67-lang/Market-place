@@ -1,4 +1,4 @@
-const roleMiddleware = (...allowedRoles) => {
+const roleMiddleware = (allowedRoles) => {
     return (req, res, next) => {
         try{
             if (!req.user) {

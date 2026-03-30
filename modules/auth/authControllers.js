@@ -1,4 +1,5 @@
 const {registerUser,loginUser}=require('./authService')
+const genrateToken=require('../../utils/generateToken')
 const register=async(req,res,next)=>
 {
     try {
@@ -17,7 +18,8 @@ const register=async(req,res,next)=>
 const login =async (req,res,next) => {
     try {
 const { email, password } = req.body
-const{ user,token} = await loginUser(email, password)
+const user = await loginUser(email, password)
+const token=genrateToken(user)
         res.status(201).json({
             success:true,
             message:'the user log in succesfully',
