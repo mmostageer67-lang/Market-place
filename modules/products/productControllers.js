@@ -1,5 +1,5 @@
 const { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } = require("./productService")
-const validatProduct = require("../../utils/validateProduct")
+const {validatProduct,validatUpdateProduct} = require("../../utils/validateProduct")
 const createProductController=async (req,res,next) => {
     try {
         validatProduct(req.body)
@@ -43,6 +43,7 @@ const getProductByIdController=async(req,res,next)=>
 }
 const updateProductController=async (req,res,next) => {
     try {
+        validatUpdateProduct(req.body)
         const product=await updateProduct(req.params.id, req.body, req.user.id)
         res.status(200).json({
             success:true,
