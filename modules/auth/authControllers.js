@@ -1,6 +1,6 @@
 const {registerUser,loginUser}=require('./authService')
 const genrateToken=require('../../utils/generateToken')
-const validateRegister = require('../../utils/validation')
+const {validateRegister,validateLogin } = require('../../utils/validation')
 const register=async(req,res,next)=>
 {
     try {
@@ -19,6 +19,8 @@ const register=async(req,res,next)=>
 }
 const login =async (req,res,next) => {
     try {
+        validateLogin(req.body)
+
 const { email, password } = req.body
 const user = await loginUser(email, password)
 const token=genrateToken({id: user._id, role: user.role})
