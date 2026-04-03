@@ -1,7 +1,8 @@
 const { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } = require("./productService")
-const authMiddleware=require('../../middleware/authMiddleware')
+const validatProduct = require("../../utils/validateProduct")
 const createProductController=async (req,res,next) => {
     try {
+        validatProduct(req.body)
         const product=await createProduct(req.body,req.user.id)
         res.status(201).json({
             success:true,

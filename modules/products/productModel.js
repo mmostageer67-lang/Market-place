@@ -18,7 +18,8 @@ description:
 stock:
 {
     type:Number,
-    default:0,
+    
+    required:true,
     min: [0, 'stock must be positive']
 },
 category:
