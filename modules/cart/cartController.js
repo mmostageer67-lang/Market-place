@@ -1,4 +1,4 @@
-const { addToCart } = require("./cartService")
+const { addToCart, getCart } = require("./cartService")
 
 const addToCartController=async(req,res,next)=>
 {
@@ -16,4 +16,19 @@ const addToCartController=async(req,res,next)=>
     }
    
 }
-module.exports={addToCartController}
+const getCartController=async(req,res,next)=>
+{
+    try {
+        const userId=req.user.id
+const cart=await getCart(userId)
+
+res.status(200).json({
+    success:true,
+    cart
+})  
+    } catch (error) {
+        next(error)
+    }
+  
+}
+module.exports={addToCartController,getCartController}

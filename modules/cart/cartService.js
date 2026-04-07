@@ -49,4 +49,18 @@ quantity:quantity
     }
  
 }
-module.exports={addToCart}
+const getCart=async(userId)=>
+{
+try {
+    const cart=await Cart.findOne({user:userId})
+    if(!cart)
+    {
+return  {items: []}
+    }
+    return cart
+} catch (error) {
+    throw error
+    
+}
+}
+module.exports={addToCart,getCart}
