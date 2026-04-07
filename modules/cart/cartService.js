@@ -110,5 +110,16 @@ const updateCart = async (productId, userId, quantity) => {
       throw error
    }
 }
-
-module.exports={addToCart,getCart,updateCart}
+const deleteCart=async(userId)=>{
+try {
+    const cart=await Cart.findOneAndDelete(userId)
+    if(!cart)
+    {
+        throw new Error("the cart not found!");
+        
+    }
+    return cart
+} catch (error) {
+    throw error
+}}
+module.exports={addToCart,getCart,updateCart,deleteCart}

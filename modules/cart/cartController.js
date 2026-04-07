@@ -1,4 +1,5 @@
-const { addToCart, getCart, updateCart } = require("./cartService")
+const { findOneAndDelete } = require("../products/productModel")
+const { addToCart, getCart, updateCart, deleteCart } = require("./cartService")
 
 const addToCartController=async(req,res,next)=>
 {
@@ -46,4 +47,19 @@ const updateCartController=async(req,res,next)=>
         next(error)
     }
 }
-module.exports={addToCartController,getCartController,updateCartController}
+const deleteCartController=async(req,res,next)=>
+{
+    try {
+        const userId=req.user.id
+       await deleteCart(userId)
+        res.status(200).json({
+            success:true,
+            message:"cart deleted successfully"
+            
+        })
+
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports={addToCartController,getCartController,updateCartController,deleteCartController}
