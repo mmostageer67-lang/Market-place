@@ -33,8 +33,7 @@ const getCartController=async(req,res,next)=>
     try {
         const userId=req.user.id
 const cart=await getCart(userId)
-       
-const formatedCart=formatCart(cart)
+
 res.status(200).json({
     success:true,
     cart:formatedCart
