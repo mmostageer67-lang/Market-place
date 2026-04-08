@@ -1,4 +1,3 @@
-const { findOneAndDelete } = require("../products/productModel")
 const { addToCart, getCart, updateCart, deleteCart } = require("./cartService")
 
 const addToCartController=async(req,res,next)=>
@@ -22,10 +21,19 @@ const getCartController=async(req,res,next)=>
     try {
         const userId=req.user.id
 const cart=await getCart(userId)
-
+        const formatCart = (cart) => {
+   return {
+      ...cart.toObject(),
+      items: cart.items.map(item => ({
+         ...item.toObject(),
+         total: item.price * item.quantity
+      }))
+   }
+}
+const formatedCart=formatCart(cart)
 res.status(200).json({
     success:true,
-    cart
+    cart:formatedCart
 })  
     } catch (error) {
         next(error)
