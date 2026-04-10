@@ -34,5 +34,9 @@ cart.items=[]
  await cart.save()
 return order
 }
+const getOrder=async()=>
+{
 
-module.exports={createOrder}
+}
+
+module.exports={createOrder,getOrder}

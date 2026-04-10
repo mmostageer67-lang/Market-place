@@ -13,4 +13,12 @@ const createOrderController=async(req,res,next)=>
         next(error)
     }
 }
-module.exports={createOrderController}
+const getOrderController=async(req,res,next)=>
+{
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports={createOrderController,getOrderController}
