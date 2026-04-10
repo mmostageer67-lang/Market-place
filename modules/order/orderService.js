@@ -42,7 +42,7 @@ return orders
 }
 const getSingleOder=async(userId,orderId)=>
 {
-const order = await Order.findById({ user: userId, _id: orderId })
+const order = await Order.findById( orderId )
 if (order.user.toString() !== userId) {
     throw new Error("not authorized")
 }
@@ -56,4 +56,29 @@ const getAllAdminOrders=async()=>
        
   return orders
 }
-module.exports={createOrder,getOrder,getSingleOder,getAllAdminOrders}
+const updateOrderStatus=async (orderId,newStatus) => {
+    const valideTransation={
+        pending:['paid'],
+        paid:['shipped'],
+        shipped:['delivered'],
+        delivered:[]
+    }
+    const order=await Order.findById(orderId)
+    if(!order)
+    {
+        throw new Error("order not found");
+        
+    }
+const currentStatus=order.status
+if(!valideTransation[newStatus])
+{throw new Error("invalid status");
+}
+if(!valideTransation[currentStatus].includes(newStatus)){
+    throw new Error("invalid status transition");
+    
+}
+order.status=newStatus
+await order.save()
+return order
+}
+module.exports={createOrder,getOrder,getSingleOder,getAllAdminOrders,updateOrderStatus}
