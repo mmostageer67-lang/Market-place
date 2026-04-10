@@ -61,7 +61,8 @@ const updateOrderStatus=async (orderId,newStatus) => {
         pending:['paid'],
         paid:['shipped'],
         shipped:['delivered'],
-        delivered:[]
+        delivered:[],
+        cancelled:[]
     }
     const order=await Order.findById(orderId)
     if(!order)

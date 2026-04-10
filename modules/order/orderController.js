@@ -1,4 +1,4 @@
-const { createOrder, getOrder, getSingleOder, getAllAdminOrders } = require("./orderService")
+const { createOrder, getOrder, getSingleOder, getAllAdminOrders, updateOrderStatus } = require("./orderService")
 
 const createOrderController=async(req,res,next)=>
 {
@@ -30,7 +30,7 @@ const getOrderController=async(req,res,next)=>
 const getSingleOrderController=async (req,res,next) => {
     try {
         const userId=req.user.id
-        const {orderId}=req.params
+        const orderId=req.params.id
         const order = await getSingleOder(userId, orderId)
 
         res.status(200).json({
@@ -54,4 +54,22 @@ try {
     next(error)
 }
 }
-module.exports={createOrderController,getOrderController,getSingleOrderController,getAllAdminOrdersContrller}
+const  updateOrderStatusController=async(req,res,next)=>
+{
+    try {
+        const orderId=req.params.id
+const { status: newStatus } = req.body
+        const order=await updateOrderStatus(orderId,newStatus)
+        if (!newStatus) {
+    throw new Error("status is required")
+}
+        res.status(200).json({
+            success:true,
+            message:'order status upsated successflly',
+            order
+        })
+    } catch (error) {
+        next (error)
+    }
+}
+module.exports={createOrderController,getOrderController,getSingleOrderController,getAllAdminOrdersContrller,updateOrderStatusController}
