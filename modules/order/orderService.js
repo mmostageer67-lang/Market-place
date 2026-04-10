@@ -34,9 +34,11 @@ cart.items=[]
  await cart.save()
 return order
 }
-const getOrder=async()=>
+const getOrder=async(userId)=>
 {
+const orders=await Order.find({user:userId}).sort({createdAt:-1})
 
+return orders
 }
 
 module.exports={createOrder,getOrder}
