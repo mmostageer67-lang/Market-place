@@ -1,4 +1,4 @@
-const { createOrder } = require("./orderService")
+const { createOrder, getOrder } = require("./orderService")
 
 const createOrderController=async(req,res,next)=>
 {
@@ -16,7 +16,13 @@ const createOrderController=async(req,res,next)=>
 const getOrderController=async(req,res,next)=>
 {
     try {
-        
+        const userId=req.user.id
+        const orders=await getOrder(userId)
+        res.status(200).json({
+            success:true,
+            length: orders.length,
+            orders
+        })
     } catch (error) {
         next(error)
     }
