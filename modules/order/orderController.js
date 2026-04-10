@@ -30,8 +30,9 @@ const getOrderController=async(req,res,next)=>
 const getSingleOrderController=async (req,res,next) => {
     try {
         const userId=req.user.id
-        const orderId=req.params
-        const order=await getSingleOder(userId,orderId)
+        const {orderId}=req.params
+        const order = await getSingleOder(userId, orderId)
+
         res.status(200).json({
             status:true,
             order
