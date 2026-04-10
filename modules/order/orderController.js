@@ -1,4 +1,4 @@
-const { createOrder, getOrder } = require("./orderService")
+const { createOrder, getOrder, getSingleOder } = require("./orderService")
 
 const createOrderController=async(req,res,next)=>
 {
@@ -27,4 +27,17 @@ const getOrderController=async(req,res,next)=>
         next(error)
     }
 }
-module.exports={createOrderController,getOrderController}
+const getSingleOrderController=async (req,res,next) => {
+    try {
+        const userId=req.user.id
+        const orderId=req.params
+        const order=await getSingleOder(userId,orderId)
+        res.status(200).json({
+            status:true,
+            order
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports={createOrderController,getOrderController,getSingleOrderController}
