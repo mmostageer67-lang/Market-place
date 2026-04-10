@@ -49,4 +49,11 @@ if (order.user.toString() !== userId) {
 
 return order
 }
-module.exports={createOrder,getOrder,getSingleOder}
+const getAllAdminOrders=async()=>
+{
+   
+        const orders=await Order.find().populate('user','name email').populate('items.product','name price')
+       
+  return orders
+}
+module.exports={createOrder,getOrder,getSingleOder,getAllAdminOrders}
