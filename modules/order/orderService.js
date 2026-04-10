@@ -40,5 +40,19 @@ const orders=await Order.find({user:userId}).sort({createdAt:-1})
 
 return orders
 }
+const getSingleOder=async(userId,orderId)=>
+{
+const order=await Order.findById({user:orderId})
+if(!order)
+{
+    throw new Error("order not found");
+    
+}
+if(!order.user.toObject()!==userId)
+{
+throw new Error("not authorized");
 
-module.exports={createOrder,getOrder}
+}
+return order
+}
+module.exports={createOrder,getOrder,getSingleOder}
