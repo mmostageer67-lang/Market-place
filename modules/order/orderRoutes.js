@@ -1,8 +1,10 @@
 const express=require('express')
 const router=express.Router()
 const authMiddleware=require('../../middleware/authMiddleware')
-const { createOrderController, getOrderController, getSingleOrderController } = require('./orderController')
+const { createOrderController, getOrderController, getSingleOrderController, getAllAdminOrdersContrller } = require('./orderController')
+const roleMiddleware = require('../../middleware/roleMiddleware')
 router.post('/create',authMiddleware,createOrderController)
 router.get('/',authMiddleware,getOrderController)
 router.get('/get/:orderId',authMiddleware,getSingleOrderController)
+router.get('/getAll',authMiddleware,roleMiddleware(['admin']),getAllAdminOrdersContrller)
 module.exports=router
