@@ -1,5 +1,24 @@
 const Cart=require('../cart/cartModel')
+const Product=require('../products/productModel')
 const Order=require('../order/orderModel')
+const validationItemStock=async (items) => {
+    for(let item of items)
+    {
+        const product=await Product.findById(item.product)
+        if(!product)
+        {
+            throw new Error("product not found");
+            
+        }
+        if(product.stock<item.quantity)
+        {
+            throw new Error(`not enough for stock${product.name}`);
+            
+        }
+        product.stock-=item.quantity
+        await product.save()
+    }
+}
 const createOrder=async (userId) => {
 
         const cart=await Cart.findOne({ user: userId })
@@ -24,6 +43,8 @@ price:item.price,
 quantity:item.quantity
     })
 )
+        await validationItemStock(items)
+
 const order=await Order.create({
     user:userId,
     items
@@ -58,8 +79,8 @@ const getAllAdminOrders=async()=>
 }
 const updateOrderStatus=async (orderId,newStatus) => {
     const valideTransation={
-        pending:['paid'],
-        paid:['shipped'],
+        pending:['paid','cancelled'],
+        paid:['shipped','cancelled'],
         shipped:['delivered'],
         delivered:[],
         cancelled:[]
